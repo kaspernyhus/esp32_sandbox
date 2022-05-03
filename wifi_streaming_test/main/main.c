@@ -16,8 +16,8 @@
 #include "rtptx.h"
 #include "esp_timer.h"
 
-#include "CA_i2s.h"
-#include "CA_i2c.h"
+#include "i2s_driver.h"
+#include "i2c_driver.h"
 #include "pcm1863.h"
 #include "circular_buffer.h"
 
