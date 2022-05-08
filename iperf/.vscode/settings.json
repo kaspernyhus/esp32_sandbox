@@ -1,0 +1,7 @@
+{
+    "idf.adapterTargetName": "esp32s3",
+    "files.associations": {
+        "cmd_decl.h": "c",
+        "cmd_wifi.h": "c"
+    }
+}
