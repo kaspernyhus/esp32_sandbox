@@ -1,0 +1,20 @@
+{
+    "idf.adapterTargetName": "esp32s3",
+    "files.associations": {
+        "nvs_flash.h": "c",
+        "wifi_config.h": "c",
+        "adc_config.h": "c",
+        "i2s_driver.h": "c",
+        "esp_timer.h": "c",
+        "timer_driver.h": "c",
+        "freertos.h": "c",
+        "rmt_uart.h": "c",
+        "masterlink.h": "c",
+        "tusb_cdc_acm.h": "c"
+    },
+    "idf.port": "/dev/ttyUSB0",
+    "idf.openOcdConfigs": [
+        "interface/ftdi/esp32_devkitj_v1.cfg",
+        "target/esp32s3.cfg"
+    ]
+}
