@@ -1,3 +1,6 @@
 [submodule "wifi_streaming_test/components/esp32_testing"]
 	path = wifi_streaming_test/components/esp32_testing
 	url = git@github.com:kaspernyhus/esp32_testing.git
+[submodule "esp32_LC3plus_test/components/esp32_LC3plus"]
+	path = esp32_LC3plus_test/components/esp32_LC3plus
+	url = git@github.com:kaspernyhus/esp32_LC3plus.git
