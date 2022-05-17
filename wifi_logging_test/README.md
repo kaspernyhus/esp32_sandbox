@@ -1,1 +1,1 @@
-# Audio streaming from esp32 to Gstreamer testing
+# WiFi real time logging module test

@@ -37,43 +37,22 @@ void tcp_client_task(void *pvParameters)
         sock = socket(addr_family, SOCK_STREAM, ip_protocol);
         if (sock < 0) {
             ESP_LOGE(TCP_TAG, "Unable to create socket: errno %d", errno);
-            break;
+            // break;
         }
         ESP_LOGI(TCP_TAG, "Socket created (%d), trying to connect to %s:%d", sock, host_ip, TCP_PORT);
 
         int err = connect(sock, (struct sockaddr *)&dest_addr, sizeof(struct sockaddr_in6));
         if (err != 0) {
             ESP_LOGE(TCP_TAG, "Socket unable to connect: errno %d", errno);
-            break;
+            // break;
         }
-        ESP_LOGI(TCP_TAG, "Successfully connected");
+        // ESP_LOGI(TCP_TAG, "Successfully connected");
 
         while (1) {
-            // int err = send(sock, payload, strlen(payload), 0);
-            // if (err < 0) {
-            //     ESP_LOGE(TCP_TAG, "Error occurred during sending: errno %d", errno);
-            //     break;
-            // }
-
-            // int len = recv(sock, rx_buffer, sizeof(rx_buffer) - 1, 0);
-            // // Error occurred during receiving
-            // if (len < 0) {
-            //     ESP_LOGE(TCP_TAG, "recv failed: errno %d", errno);
-            //     break;
-            // }
-            // // Data received
-            // else {
-            //     rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
-            //     ESP_LOGI(TCP_TAG, "Received %d bytes from %s:", len, host_ip);
-            //     ESP_LOGI(TCP_TAG, "%s", rx_buffer);
-            // }
-
             if(ulTaskNotifyTake(pdTRUE,portMAX_DELAY)) {
                 ESP_LOGE(TCP_TAG,"Error occurred in tcp client task");
                 break;
             }
-
-            // vTaskDelay(1000 / portTICK_PERIOD_MS);
         }
 
         if (sock != -1) {

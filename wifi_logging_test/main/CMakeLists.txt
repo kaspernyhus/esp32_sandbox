@@ -1,2 +1,2 @@
-idf_component_register(SRCS "tcp_stream.c" "main.c" "wifi_config.c" "udp_stream.c" "rtptx.c" "i2s_driver.c" "pcm1863.c" "i2c_driver.c"
+idf_component_register(SRCS "main.c" "wifi_config.c" "tcp_stream.c"
                     INCLUDE_DIRS ".")

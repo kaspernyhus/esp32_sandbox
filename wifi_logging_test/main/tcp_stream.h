@@ -7,7 +7,7 @@
 #include "lwip/err.h"
 #include "lwip/sockets.h"
 
-#define TCP_HOST_IP_ADDR "192.168.1.137"
+#define TCP_HOST_IP_ADDR "192.168.0.85"
 #define TCP_PORT 3333
 
 
