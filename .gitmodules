@@ -7,3 +7,6 @@
 [submodule "sig_gen_test/components/esp32_testing"]
 	path = sig_gen_test/components/esp32_testing
 	url = git@github.com:kaspernyhus/esp32_testing.git
+[submodule "esp32_LC3plus_test/components/esp32_testing"]
+	path = esp32_LC3plus_test/components/esp32_testing
+	url = git@github.com:kaspernyhus/esp32_testing.git
