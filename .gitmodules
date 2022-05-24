@@ -10,3 +10,6 @@
 [submodule "esp32_LC3plus_test/components/esp32_testing"]
 	path = esp32_LC3plus_test/components/esp32_testing
 	url = git@github.com:kaspernyhus/esp32_testing.git
+[submodule "wifi_logging_test/components/esp32_testing"]
+	path = wifi_logging_test/components/esp32_testing
+	url = https://github.com/kaspernyhus/esp32_testing.git

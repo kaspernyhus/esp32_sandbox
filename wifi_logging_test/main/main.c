@@ -11,6 +11,7 @@
 #include "code_timer.h"
 #include "log_buffer.h"
 #include "tcp_stream.h"
+#include "udp_stream.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
