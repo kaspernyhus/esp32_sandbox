@@ -4,8 +4,9 @@
         "interface/ftdi/esp32_devkitj_v1.cfg",
         "target/esp32s3.cfg"
     ],
-    "idf.port": "/dev/ttyUSB0",
+    "idf.port": "/dev/cu.usbserial-1430",
     "files.associations": {
-        "esp_heap_task_info.h": "c"
+        "esp_heap_task_info.h": "c",
+        "log_buffer.h": "c"
     }
 }

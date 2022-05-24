@@ -5,13 +5,7 @@
 #include <stdio.h>
 #include "wifi_config.h"
 #include "nvs_flash.h"
-#include "esp_timer.h"
 #include "esp_log.h"
-#include "circular_buffer.h"
-#include "code_timer.h"
-#include "log_buffer.h"
-#include "tcp_stream.h"
-#include "udp_stream.h"
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -20,38 +14,13 @@
 #include "esp_heap_task_info.h"
 #include "esp_heap_caps.h"
 
+#include "remote_log.h"
 
 
-#define LOGGING_INTERVAL_MS 1000
+#define LOGGING_INTERVAL_MS 10
 
 
-static void periodic_timer_callback(void* arg);
-TaskHandle_t tcp_client_handle = NULL;
-TaskHandle_t tcp_logging_handle = NULL;
-
-
-
-void tcp_logging_task(void *pvParameters)
-{
-    xTaskCreatePinnedToCore(tcp_client_task,"tcp_client",4096,NULL,5,&tcp_client_handle,0);
-    ESP_LOGI("tcp logging","task started");
-
-
-    while(1) {
-        ulTaskNotifyTake(pdTRUE,portMAX_DELAY);
-        // code_timer_take_timestamp(&timer, "udp_tx_task run");
-
-        heap_caps_print_heap_info(MALLOC_CAP_DEFAULT);
-
-        
-
-        // int payload = ret;
-        
-        // if(tcp_send(payload, 26)) {
-        //     xTaskNotifyGive(tcp_client_handle);
-        // }
-    }
-}
+int8_t heap_logger(uint8_t *out, size_t *len);
 
 
 void app_main(void)
@@ -61,33 +30,32 @@ void app_main(void)
     ESP_ERROR_CHECK(nvs_flash_init());
     // Start wifi in station mode
     wifi_init_sta();
-
-    
     // Wait for connection...
-    vTaskDelay(5000/portTICK_PERIOD_MS);
+    vTaskDelay(1000/portTICK_PERIOD_MS);
 
 
-    // Start UDP tasks
-    xTaskCreatePinnedToCore(tcp_logging_task,"tcp_log_task",4096,NULL,5,&tcp_logging_handle,0);
+    remote_log_init(LOGGING_INTERVAL_MS, "192.168.0.53", 3333);
     
-    
-    // Create (hardware) timer
-    const esp_timer_create_args_t periodic_timer_args = {
-            .callback = &periodic_timer_callback,
-            /* name is optional, but may help identify the timer when debugging */
-            .name = "periodic"
+
+    remote_log_id_t logger_id = {
+        .log_id = 0x12,
+        .tag = "Heap Logger",
+        .tag_len = 12
     };
-    esp_timer_handle_t periodic_timer;
-    ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
-    /* Start the timers */
-    ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LOGGING_INTERVAL_MS*1000));
-    ESP_LOGI("timer", "Started timer");
+    remote_log_register_t logger = {
+        .id = logger_id,
+        .cb = heap_logger
+    };
+    
+    remote_log_register(logger);
 }
 
 
-static void periodic_timer_callback(void* arg)
+int8_t heap_logger(uint8_t *out, size_t *len)
 {
-    // Notify audio task
-    xTaskNotifyGive(tcp_logging_handle);
-}
+    uint32_t val = esp_get_free_heap_size();
+    memcpy(out,(uint8_t*)&val,4);
+    *len = 4;
 
+    return 0;
+}
