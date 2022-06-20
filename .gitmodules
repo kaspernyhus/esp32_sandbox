@@ -13,3 +13,6 @@
 [submodule "wifi_logging_test/components/esp32_testing"]
 	path = wifi_logging_test/components/esp32_testing
 	url = https://github.com/kaspernyhus/esp32_testing.git
+[submodule "remote_log_test/components/esp32_testing"]
+	path = remote_log_test/components/esp32_testing
+	url = git@github.com:kaspernyhus/esp32_testing.git
