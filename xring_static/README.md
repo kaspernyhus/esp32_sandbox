@@ -1,0 +1,1 @@
+# Testing static memory allocation for the ESP-IDF xRingbuffer implementation
